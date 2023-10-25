@@ -12,7 +12,7 @@
 需要在大规模搜索空间中找到全局最优解或高质量的解的问题，都可以考虑模拟退火算法。
 
 ## 解决思路
-我们首先使用Intel® oneAPI系列工具分析串行代码 [tsp.cpp] (https://github.com/inata1024/oneAPI_tsp/blob/main/tsp.cpp)，以找到决定程序性能的关键代码。
+我们首先使用Intel® oneAPI系列工具分析串行代码tsp.cpp，以找到决定程序性能的关键代码。
 
 ### 使用Vtune分析程序的性能瓶颈
 使用Intel® VTune Profiler的Hotspots模式对模拟退火的串行算法进行分析，在编译时加入“-g”选项以便查看对应的源代码。
