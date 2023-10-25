@@ -33,7 +33,7 @@
 </div>
 
 ## 并行优化程序
-接下来开始进行优化。首先我们发现41~43行、 71~73行同属典型的规约操作，所以考虑使用openMP进行多线程的优化。
+接下来开始进行优化。首先我们发现41\~43行、 71\~73行同属典型的规约操作，所以考虑使用openMP进行多线程的优化。
 
 <div style="text-align: center;">
     <img src="img/image-2.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
