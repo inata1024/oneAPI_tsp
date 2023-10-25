@@ -18,7 +18,9 @@
 使用Intel® VTune Profiler的Hotspots模式对模拟退火的串行算法进行分析，在编译时加入“-g”选项以便查看对应的源代码。
 我们将注意力放在CPU Time较多的代码上，尝试寻找优化空间。
 
-![Alt text](img/image.png)
+<div style="text-align: center;">
+    <img src="img/image.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
+</div>
 
 我们发现41\~43行的for循环用时较多。另外71~73行的for循环同样耗费了一定的时间。
 
@@ -26,20 +28,28 @@
 另外，我们使用Intel® Advisor的Offload Advisor寻找可能使用GPU进行加速的代码段。
 最终的报告显示有一个成功offload的循环，实现了1.2倍的加速。我们将基于此进行进一步的优化。
 
-![Alt text](img/image-1.png)
+<div style="text-align: center;">
+    <img src="img/image-1.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
+</div>
 
 ## 并行优化程序
 接下来开始进行优化。首先我们发现41~43行、 71~73行同属典型的规约操作，所以考虑使用openMP进行多线程的优化。
 
-![Alt text](img/image-2.png)
+<div style="text-align: center;">
+    <img src="img/image-2.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
+</div>
 
 另外，Intel® Advisor的报告显示此处代码可以卸载到GPU实现加速，因此我们设计了SYCL程序实现了GPU端的规约。
 
-![Alt text](img/image-3.png)
+<div style="text-align: center;">
+    <img src="img/image-3.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
+</div>
 
 我们选择USM模型进行主机与设备端的数据传递，首先初始化队列与将要用到的共享内存区。
 
-![Alt text](img/image-4.png)
+<div style="text-align: center;">
+    <img src="img/image-4.png" alt="Alt text" width="400" style="max-width: 100%; display: inline;">
+</div>
 
 计算cur_sum时，使用队列提交任务，在设备端进行规约。我们在为cur多分配了一个单位的空间，目的是传递求和信息（图中第66行）。
 
